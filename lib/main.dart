@@ -31,9 +31,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   static const MethodChannel methodChannel =
-      MethodChannel('channel.linbin.com/battery');
+      MethodChannel('samples.flutter.io/battery');
   static const EventChannel eventChannel =
-      EventChannel('channel.linbin.com/charging');
+      EventChannel('samples.flutter.io/charging');
   String _batteryLevel = 'Battery level: unknown.';
   String _chargingStatus = 'Battery status: unknown.';
 
@@ -49,13 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
         batteryLevel = 'Failed to get battery level.';
       }
     } catch (e) {
-      print('_getBatteryLevel: $e');
+      batteryLevel = 'Error to get battery level.';
     }
-    if (batteryLevel != null) {
-      setState(() {
-        _batteryLevel = batteryLevel!;
-      });
-    }
+    setState(() {
+      _batteryLevel = batteryLevel!;
+    });
   }
 
   @override
@@ -67,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onEvent(Object? event) {
     setState(() {
       _chargingStatus =
-          "Battery status: ${event == 'charging' ? '' : 'dis'}charging.";
+          "Battery status: ${event == 'charging' ? 'charging' : 'discharging'}";
     });
   }
 
